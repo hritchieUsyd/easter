@@ -162,8 +162,6 @@ Quinn and the person cooking lunch were never in the same Location, but they sha
     <button onclick="choose('Ciara')">Ciara</button>
     <button onclick="choose('Grace')">Grace</button>
   <div class="choice">
-    <p id="logic-hint" class="hidden" style="background:#f9f9f9; padding:10px; border-left:3px solid #ccc;">
-      Tip: Use Location (On/Off Board) and Attire (Togs/Casual).
     </p>
 
   </div>
@@ -189,6 +187,8 @@ Quinn and the person cooking lunch were never in the same Location, but they sha
 function next(a, b) {
   document.getElementById(a).classList.add("hidden");
   document.getElementById(b).classList.remove("hidden");
+  if (b === 'puzzle3') {
+    buildGrid();
 }
 
 function checkCode() {
@@ -224,11 +224,24 @@ function buildGrid() {
       if (cell === "S") div.innerHTML = "⛺";
       else if (cell === "E") { div.innerHTML = "🐕"; div.onclick = finish; }
       else if (cell === "#") div.className = "cell wall";
-      else { div.innerHTML = cell; div.onclick = () => { if(!used.has(div)){ used.add(div); sum += cell; div.classList.add("active"); document.getElementById("status").textContent = "Distance: " + sum; }}; }
-      grid.appendChild(div);
-    });
-  });
+      else { 
+  div.innerHTML = cell; 
+  div.onclick = () => { 
+    if(!used.has(div)){ 
+      used.add(div); 
+      sum += cell; 
+      div.classList.add("active"); 
+      document.getElementById("status").textContent = "Distance: " + sum;
+      // Auto-reset if they go over
+      if (sum > 15) {
+        document.getElementById("m3").textContent = "Too far! Maggie resets the path.";
+        setTimeout(reset, 1000);
+      }
+    }
+  }; 
 }
+
+
 
 function finish() {
   if (sum === 15) next("puzzle3", "final");

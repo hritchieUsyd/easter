@@ -111,7 +111,7 @@ footer {
 <!-- INTRO -->
 <div id="intro">
   <h1>🐾 Maggie’s Campground Challenge</h1>
-  <img src="images/maggie1.jpg" style="width:300px;">
+  <img src="image/maggie1.jpg" style="width:300px;">
   <p>The tent is pitched. The road stretches on.<br>Something important has been hidden.</p>
   <button onclick="next('intro','puzzle1')">Begin</button>
 </div>
@@ -119,7 +119,18 @@ footer {
 <!-- PUZZLE 1 -->
 <div id="puzzle1" class="hidden">
   <h1>🏕️ The Camp Lock</h1>
-  <p>Code: 2349</p>
+  <img src ="image/maggie-esky.png" style="width:300px;">
+  <p>Maggie secured the esky with a four‑digit code.</p>
+  <ul>
+    <li>All digits are different</li>
+    <li>Divisible by 9</li>
+    <li>First two digits form a two-digit prime less than 40</li>
+    <li>Last two digits form a square</li>
+     <li>First two digits are less than the second two digits</li>
+     <li>The number is greater than 2000</li>
+    <li>The number is not a mirror</li>
+  </ul>
+  
   <input id="code1" type="text" maxlength="4" inputmode="numeric">
   <button onclick="checkCode()">Open the box</button>
   <div class="maggie" id="m1"></div>
@@ -128,15 +139,33 @@ footer {
 <!-- PUZZLE 2 -->
 <div id="puzzle2" class="hidden">
   <h1>🧊 The Cooler Question</h1>
-  <p>Malithi and the person on the sunlounger are in the same location but wear different togs.</p>
+  <img src="image/all5.jpg" style="width:300px;">
+  <p> When we finally found a spot to moor, everyone scattered. Someone went straight in for a swim. Someone else grabbed a drink from the esky and started working on their tan. Another started getting lunch ready.
+In the middle of all that, the boat did get tied up at least for a while. At some point during the night, the boat quietly drifted from shore.
+Only Maggie remembers who tied up the boat.</p>
+
+  <p>
+Malithi and the person lying on the sunlounger were in the same location, but they were wearing different attire.<br>
+Grace and the person tying up the boat were in different Locations, yet they were the only two wearing casual clothes.<br>
+Ciara and the person swimming were both off the boat, but only one of them was wearing togs.<br>
+Quinn and the person cooking lunch were never in the same Location, but they shared the same attire.<br>
+
+  </p>
+
   <div class="choice">
-    <p id="logic-hint" class="hidden" style="background:#f9f9f9; padding:10px; border-left:3px solid #ccc;">
-      Tip: Use Location (On/Off Board) and Attire (Togs/Casual).
-    </p>
+    <!-- The hidden hint -->
+<p id="logic-hint" class="hidden" style="font-size: 0.9em; color: #555; background: #f9f9f9; padding: 10px; border-left: 3px solid #ccc;">
+  <strong>Maggie's Tip:</strong> Try categorising each person by their <strong>Location</strong> (On-Board vs Off-Board) and their <strong>Attire</strong> (Togs vs Casual).
+</p>
     <button onclick="choose('Malithi')">Malithi</button>
     <button onclick="choose('Quinn')">Quinn</button>
     <button onclick="choose('Ciara')">Ciara</button>
     <button onclick="choose('Grace')">Grace</button>
+  <div class="choice">
+    <p id="logic-hint" class="hidden" style="background:#f9f9f9; padding:10px; border-left:3px solid #ccc;">
+      Tip: Use Location (On/Off Board) and Attire (Togs/Casual).
+    </p>
+
   </div>
   <div class="maggie" id="m2"></div>
 </div>

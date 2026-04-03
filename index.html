@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maggie’s Campground Challenge</title>
+<title>Maggie’s Campground Challenge1</title>
 
 <style>
 body {
@@ -57,7 +57,6 @@ button {
 button:active { background: #4b6a56; }
 .choice button { margin-bottom: 8px; }
 
-/* Fixed CSS Grid and Status styling */
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -140,29 +139,24 @@ footer {
 <div id="puzzle2" class="hidden">
   <h1>🧊 The Cooler Question</h1>
   <img src="image/all5.jpg" style="width:300px;">
-  <p> When we finally found a spot to moor, everyone scattered. Someone went straight in for a swim. Someone else grabbed a drink from the esky and started working on their tan. Another started getting lunch ready.
-In the middle of all that, the boat did get tied up at least for a while. At some point during the night, the boat quietly drifted from shore.
-Only Maggie remembers who tied up the boat.</p>
+  <p> When we finally found a spot to moor, everyone scattered. Someone went straight in for a swim. Someone else grabbed a drink from the esky and started working on their tan. Another started getting lunch ready. Only Maggie remembers who tied up the boat.</p>
 
   <p>
-Malithi and the person lying on the sunlounger were in the same location, but they were wearing different attire.<br>
-Grace and the person tying up the boat were in different Locations, yet they were the only two wearing casual clothes.<br>
-Ciara and the person swimming were both off the boat, but only one of them was wearing togs.<br>
-Quinn and the person cooking lunch were never in the same Location, but they shared the same attire.<br>
-
+    Malithi and the person lying on the sunlounger were in the same location, but they were wearing different attire.<br>
+    Grace and the person tying up the boat were in different Locations, yet they were the only two wearing casual clothes.<br>
+    Ciara and the person swimming were both off the boat, but only one of them was wearing togs.<br>
+    Quinn and the person cooking lunch were never in the same Location, but they shared the same attire.<br>
   </p>
 
   <div class="choice">
-    <!-- The hidden hint -->
-<p id="logic-hint" class="hidden" style="font-size: 0.9em; color: #555; background: #f9f9f9; padding: 10px; border-left: 3px solid #ccc;">
-  <strong>Maggie's Tip:</strong> Try categorising each person by their <strong>Location</strong> (On-Board vs Off-Board) and their <strong>Attire</strong> (Togs vs Casual).
-</p>
+    <p id="logic-hint" class="hidden" style="font-size: 0.9em; color: #555; background: #f9f9f9; padding: 10px; border-left: 3px solid #ccc;">
+      <strong>Maggie's Tip:</strong> Try categorising each person by their <strong>Location</strong> (On-Board vs Off-Board) and their <strong>Attire</strong> (Togs vs Casual).
+    </p>
     <button onclick="choose('Malithi')">Malithi</button>
     <button onclick="choose('Quinn')">Quinn</button>
     <button onclick="choose('Ciara')">Ciara</button>
     <button onclick="choose('Grace')">Grace</button>
-   
-  </div> <!-- This closing div was missing or misplaced -->
+  </div>
   <div class="maggie" id="m2"></div>
 </div>
 
@@ -187,7 +181,7 @@ function next(a, b) {
   document.getElementById(b).classList.remove("hidden");
   if (b === 'puzzle3') {
     buildGrid();
-}
+  }
 }
 
 function checkCode() {
@@ -208,7 +202,6 @@ function choose(name) {
   }
 }
 
-// Puzzle 3 Logic
 const layout = [["S", 2, "#", 4], [2, "#", 3, 2], [3, 4, 2, "E"], ["#", 2, 2, "#"]];
 let sum = 0, used = new Set();
 
@@ -221,33 +214,46 @@ function buildGrid() {
       const div = document.createElement("div");
       div.className = "cell";
       if (cell === "S") div.innerHTML = "⛺";
-      else if (cell === "E") { div.innerHTML = "🐕"; div.onclick = finish; }
+      else if (cell === "E") { 
+        div.innerHTML = "🐕"; 
+        div.onclick = finish; 
+      }
       else if (cell === "#") div.className = "cell wall";
       else { 
-  div.innerHTML = cell; 
-  div.onclick = () => { 
-    if(!used.has(div)){ 
-      used.add(div); 
-      sum += cell; 
-      div.classList.add("active"); 
-      document.getElementById("status").textContent = "Distance: " + sum;
-      // Auto-reset if they go over
-      if (sum > 15) {
-        document.getElementById("m3").textContent = "Too far! Maggie resets the path.";
-        setTimeout(reset, 1000);
+        div.innerHTML = cell; 
+        div.onclick = () => { 
+          if(!used.has(div)){ 
+            used.add(div); 
+            sum += cell; 
+            div.classList.add("active"); 
+            document.getElementById("status").textContent = "Distance: " + sum;
+            if (sum > 15) {
+              document.getElementById("m3").textContent = "Too far! Maggie resets the path.";
+              setTimeout(reset, 1000);
+            }
+          }
+        }; 
       }
-    }
-  }; 
+      grid.appendChild(div);
+    });
+  });
 }
-
-
 
 function finish() {
-  if (sum === 15) next("puzzle3", "final");
-  else { document.getElementById("m3").textContent = "Try again!"; reset(); }
+  if (sum === 15) {
+    next("puzzle3", "final");
+  } else { 
+    document.getElementById("m3").textContent = "Try again!"; 
+    reset(); 
+  }
 }
 
-function reset() { sum = 0; used.clear(); document.getElementById("status").textContent = "Distance: 0"; buildGrid(); }
+function reset() { 
+  sum = 0; 
+  used.clear(); 
+  document.getElementById("status").textContent = "Distance: 0"; 
+  buildGrid(); 
+}
 
 window.onload = buildGrid;
 </script>

@@ -3,274 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Maggie’s Campground Challenge #1 </title>
+<title>Maggie’s Campground Challenge v9</title>
 
 <style>
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #e9efe6;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-}
-
-.container {
-  max-width: 420px;
-  width: 100%;
-  background: #fffef8;
-  padding: 20px;
-  min-height: 100vh;
-}
-.scene {
-  width:100%;
-  max-width:320px;
-  height:auto;
-  display:block;
-  border-radius: 8px;
-  margin: 12px 0;
-}
-h1 { font-size: 1.4em; }
-.hidden { display: none; }
-
-input[type="text"] {
-  font-size: 1.5em;
-  text-align: center;
-  width: 100%;
-  padding: 10px;
-  margin: 15px 0;
-  border: 2px solid #bbb;
-  border-radius: 6px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 1.05em;
-  margin-top: 10px;
-  border: none;
-  border-radius: 6px;
-  background: #5c7f67;
-  color: white;
-  cursor: pointer;
-}
-
-button:active { background: #4b6a56; }
-.choice button { margin-bottom: 8px; }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 18px;
-  background: #5a6a5f;
-  border: 3px solid #5a6a5f;
-  border-radius: 18px;
-}
-
-.cell {
-  background: rgba(255,255,255,0.85);
-  border: 2px solid #6f7f72;
-  border-radius: 14px;
-  min-height: 72px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-}
-
-.cell span.icon { font-size: 1.6em; }
-.wall { background: #6b6b6b; border-style: dashed; }
-.active { background: #fff3b0; }
-.end { background: #b7e4c7; }
-
-.status, .maggie {
-  margin-top: 12px;
-  font-weight: bold;
-}
-
-.maggie {
-  font-style: italic;
-  color: #4f5d52;
-  min-height: 1.5em;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 0.8em;
-  text-align: center;
-  color: #777;
-}
+  body { font-family: system-ui, -apple-system, sans-serif; background: #e9efe6; display: flex; justify-content: center; margin: 0; }
+  .container { max-width: 420px; width: 100%; background: #fffef8; padding: 20px; min-height: 100vh; }
+  .scene { width: 100%; max-width: 320px; height: auto; display: block; border-radius: 8px; margin: 12px 0; }
+  h1 { font-size: 1.4em; }
+  .hidden { display: none; }
+  input[type="text"] { font-size: 1.5em; text-align: center; width: 100%; padding: 10px; margin: 15px 0; border: 2px solid #bbb; border-radius: 6px; }
+  button { width: 100%; padding: 12px; font-size: 1.05em; margin-top: 10px; border: none; border-radius: 6px; background: #5c7f67; color: white; cursor: pointer; }
+  button:active { background: #4b6a56; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 18px; background: #5a6a5f; border: 3px solid #5a6a5f; border-radius: 18px; }
+  .cell { background: rgba(255,255,255,0.85); border: 2px solid #6f7f72; border-radius: 14px; min-height: 72px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; }
+  .cell span.icon { font-size: 1.6em; }
+  .wall { background: #6b6b6b; border-style: dashed; }
+  .active { background: #fff3b0; }
+  .status, .maggie { margin-top: 12px; font-weight: bold; }
+  .maggie { font-style: italic; color: #4f5d52; min-height: 1.5em; }
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<!-- INTRO -->
-<div id="intro">
-  <h1>🐾 Maggie’s Campground Challenge #1 </h1>
-  <img src="image/maggie1.jpg" style="width:300px;">
-  <p>The tent is pitched. The road stretches on.<br>Something important has been hidden.</p>
-  <button onclick="next('intro','puzzle1')">Begin</button>
-</div>
-
-<!-- PUZZLE 1 -->
-<div id="puzzle1" class="hidden">
-  <h1>🏕️ The Camp Lock</h1>
-  <img src ="image/maggie-esky.png" style="width:300px;">
-  <p>Maggie secured the esky with a four‑digit code.</p>
-  <ul>
-    <li>All digits are different</li>
-    <li>Divisible by 9</li>
-    <li>First two digits form a two-digit prime less than 40</li>
-    <li>Last two digits form a square</li>
-     <li>First two digits are less than the second two digits</li>
-     <li>The number is greater than 2000</li>
-    <li>The number is not a mirror</li>
-  </ul>
-  
-  <input id="code1" type="text" maxlength="4" inputmode="numeric">
-  <button onclick="checkCode()">Open the box</button>
-  <div class="maggie" id="m1"></div>
-</div>
-
-<!-- PUZZLE 2 -->
-<div id="puzzle2" class="hidden">
-  <h1>🧊 Who tied up the boat?n</h1>
-  <img src="image/all5.jpg" style="width:300px;">
-  <p> When we finally found a spot to moor, everyone scattered. Someone went straight in for a swim. Someone else grabbed a drink from the esky and started working on their tan. Another started getting lunch ready. Only Maggie remembers who tied up the boat.</p>
-
-  <p>
-    Malithi and the person lying on the sunlounger were in the same location, but they were wearing different attire.<br>
-    Grace and the person tying up the boat were in different Locations, yet they were the only two wearing casual clothes.<br>
-    Ciara and the person swimming were both off the boat, but only one of them was wearing togs.<br>
-    Quinn and the person cooking lunch were never in the same Location, but they shared the same attire.<br>
-  </p>
-
-  <div class="choice">
-    <p id="logic-hint" class="hidden" style="font-size: 0.9em; color: #555; background: #f9f9f9; padding: 10px; border-left: 3px solid #ccc;">
-      <strong>Maggie's Tip:</strong> Try categorising each person by their <strong>Location</strong> (On-Board vs Off-Board) and their <strong>Attire</strong> (Togs vs Casual).
-    </p>
-    <button onclick="choose('Malithi')">Malithi</button>
-    <button onclick="choose('Quinn')">Quinn</button>
-    <button onclick="choose('Ciara')">Ciara</button>
-    <button onclick="choose('Grace')">Grace</button>
+  <!-- INTRO -->
+  <div id="intro">
+    <h1>🐾 Maggie’s Campground Challenge v9</h1>
+    <img src="image/maggie1.jpg" style="width:300px;">
+    <p>The truck is parked, it's time to rest.<br>But it's not Easter without a puzzle and Maggie is here to help.</p>
+    <button onclick="maggieNext('intro','puzzle1')">Begin</button>
   </div>
-  <div class="maggie" id="m2"></div>
 
-<!-- PUZZLE 3 -->
-<div id="puzzle3" class="hidden">
-  <h1>🗺️ Across the Campsite</h1>
-  <div class="grid" id="grid"></div>
-  <div class="status" id="status">Distance: 0</div>
-  <div class="maggie" id="m3"></div>
-</div>
+  <!-- PUZZLE 1 -->
+  <div id="puzzle1" class="hidden">
+    <h1>🏕️ The Esky Lock</h1>
+    <img src="image/maggie-esky.png" style="width:300px;">
+    <p>Maggie secured the esky with a four‑digit code (2349).</p>
+    <input id="code1" type="text" maxlength="4" inputmode="numeric">
+    <button onclick="checkEsky()">Open the box</button>
+    <div class="maggie" id="m1"></div>
+  </div>
 
-<!-- FINAL -->
-<div id="final" class="hidden">
-  <h1>🎉 Maggie is satisfied</h1>
-  
-  <img src="images/maggie2.jpg" class="scene">
+  <!-- PUZZLE 2 -->
+  <div id="puzzle2" class="hidden">
+    <h1>🧊 Who tied up the boat?</h1>
+    <img src="image/all5.jpg" style="width:300px;">
+    <p>Only Maggie remembers who tied up the boat.</p>
+    <div class="choice">
+      <p id="logic-hint" class="hidden" style="font-size: 0.9em; background: #f9f9f9; padding: 10px; border-left: 3px solid #ccc;">
+        Tip: Categorise by Location and Attire.
+      </p>
+      <button onclick="checkBoat('Malithi')">Malithi</button>
+      <button onclick="checkBoat('Quinn')">Quinn</button>
+      <button onclick="checkBoat('Ciara')">Ciara</button>
+      <button onclick="checkBoat('Grace')">Grace</button>
+    </div>
+    <div class="maggie" id="m2"></div>
+  </div>
 
-  <p>
-    You followed the only sensible route.
-  </p>
-  <p>
-    <strong>Check Maggie’s pack.</strong>
-  </p>
-</div>
+  <!-- PUZZLE 3 -->
+  <div id="puzzle3" class="hidden">
+    <h1>🗺️ Across the Campsite</h1>
+    <div class="grid" id="grid"></div>
+    <div class="status" id="status">Distance: 0</div>
+    <div class="maggie" id="m3"></div>
+  </div>
 
-<footer>
-  Powered by logic. Supervised by Maggie.
-</footer>
-
-</div>
-
+  <!-- FINAL -->
+  <div id="final" class="hidden">
+    <h1>🎉 Maggie is satisfied</h1>
+    <img src="images/maggie2.jpg" class="scene">
+    <p>Check Maggie’s pack for your prize!</p>
+  </div>
 
 </div>
 
 <script>
-function next(a, b) {
-  document.getElementById(a).classList.add("hidden");
-  document.getElementById(b).classList.remove("hidden");
-  if (b === 'puzzle3') {
-    buildGrid();
+  // Unified Navigation Function
+  function maggieNext(currentId, nextId) {
+    document.getElementById(currentId).classList.add("hidden");
+    const nextLayer = document.getElementById(nextId);
+    nextLayer.classList.remove("hidden");
+    if (nextId === 'puzzle3') initMap();
   }
-}
 
-function checkCode() {
-  if (document.getElementById("code1").value === "2349") next("puzzle1", "puzzle2");
-  else document.getElementById("m1").textContent = "Wrong code.";
-}
-
-function choose(name) {
-  const maggie = document.getElementById('m2');
-  if (name === 'Quinn') {
-    maggie.innerHTML = "Correct! Quinn tied up the boat.";
-    maggie.style.color = "green";
-    setTimeout(() => next("puzzle2", "puzzle3"), 1500);
-  } else {
-    maggie.innerHTML = "Not quite. Check the attire...";
-    maggie.style.color = "red";
-    document.getElementById('logic-hint').classList.remove('hidden');
+  // Puzzle 1 logic
+  function checkEsky() {
+    if (document.getElementById("code1").value === "2349") {
+      maggieNext('puzzle1', 'puzzle2');
+    } else {
+      document.getElementById("m1").textContent = "Maggie tilts her head. Try again.";
+    }
   }
-}
 
-const layout = [["S", 2, "#", 4], [2, "#", 3, 2], [3, 4, 2, "E"], ["#", 2, 2, "#"]];
-let sum = 0, used = new Set();
+  // Puzzle 2 logic
+  function checkBoat(name) {
+    const msg = document.getElementById('m2');
+    if (name === 'Quinn') {
+      msg.innerHTML = "Correct! Quinn tied it up.";
+      msg.style.color = "green";
+      setTimeout(() => maggieNext('puzzle2', 'puzzle3'), 1500);
+    } else {
+      msg.innerHTML = "Not quite. Think about the casual clothes...";
+      msg.style.color = "red";
+      document.getElementById('logic-hint').classList.remove('hidden');
+    }
+  }
 
-function buildGrid() {
-  const grid = document.getElementById("grid");
-  if(!grid) return;
-  grid.innerHTML = "";
-  layout.forEach(row => {
-    row.forEach(cell => {
-      const div = document.createElement("div");
-      div.className = "cell";
-      if (cell === "S") div.innerHTML = "⛺";
-      else if (cell === "E") { 
-        div.innerHTML = "🐕"; 
-        div.onclick = finish; 
-      }
-      else if (cell === "#") div.className = "cell wall";
-      else { 
-        div.innerHTML = cell; 
-        div.onclick = () => { 
-          if(!used.has(div)){ 
-            used.add(div); 
-            sum += cell; 
-            div.classList.add("active"); 
-            document.getElementById("status").textContent = "Distance: " + sum;
-            if (sum > 15) {
-              document.getElementById("m3").textContent = "Too far! Maggie resets the path.";
-              setTimeout(reset, 1000);
+  // Puzzle 3 logic
+  const layout = [["S", 2, "#", 4], [2, "#", 3, 2], [3, 4, 2, "E"], ["#", 2, 2, "#"]];
+  let sum = 0, used = new Set();
+
+  function initMap() {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    layout.forEach(row => {
+      row.forEach(val => {
+        const div = document.createElement("div");
+        div.className = "cell";
+        if (val === "S") div.innerHTML = "⛺";
+        else if (val === "E") { div.innerHTML = "🐕"; div.onclick = finish; }
+        else if (val === "#") div.className = "cell wall";
+        else {
+          div.innerHTML = val;
+          div.onclick = () => {
+            if (!used.has(div)) {
+              used.add(div);
+              sum += val;
+              div.classList.add("active");
+              document.getElementById("status").textContent = "Distance: " + sum;
+              if (sum > 15) resetMap("Too far! Maggie sits down.");
             }
-          }
-        }; 
-      }
-      grid.appendChild(div);
+          };
+        }
+        grid.appendChild(div);
+      });
     });
-  });
-}
-
-function finish() {
-  if (sum === 15) {
-    next("puzzle3", "final");
-  } else { 
-    document.getElementById("m3").textContent = "Try again!"; 
-    reset(); 
   }
-}
 
-function reset() { 
-  sum = 0; 
-  used.clear(); 
-  document.getElementById("status").textContent = "Distance: 0"; 
-  buildGrid(); 
-}
+  function finish() {
+    if (sum === 15) maggieNext('puzzle3', 'final');
+    else resetMap("Not 15! Try again.");
+  }
 
-window.onload = buildGrid;
+  function resetMap(msg) {
+    sum = 0; used.clear();
+    document.getElementById("m3").textContent = msg;
+    document.getElementById("status").textContent = "Distance: 0";
+    initMap();
+  }
 </script>
 </body>
 </html>
